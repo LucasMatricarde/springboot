@@ -5,15 +5,17 @@
 		<title>Insert title here</title>
 		
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-		<link type="text/css" rel="stylesheet" href="materialize/css/materialize.css"  media="screen,projection"/>
-		<link type="text/css" rel="stylesheet" href="materialize.min.css"  media="screen,projection"/>
+		<link type="text/css" rel="stylesheet" href="/materialize/css/materialize.css"  media="screen,projection"/>
+		<link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css"  media="screen,projection"/>
 	</head>
 	<body>
-		<form action="salvarPessoa" method="post">
+		<form action="salvarPessoa" method="post" th:object="${pessoaobj}">
+			<label>Id</label>
+			<input name="id" th:field="*{id}" readonly>
 			<label>Nome</label>
-			<input name="nome">
+			<input name="nome" th:field="*{nome}">
 			<label>Sobrenome</label>
-			<input name="sobrenome">
+			<input name="sobrenome" th:field="*{sobrenome}">
 			<input class="btn waves-effect waves-light" type="submit" value="Salvar">
 		</form>
 		
@@ -24,6 +26,7 @@
 				<td th:text = "${pessoa.id}"></td>
 				<td th:text = "${pessoa.nome}"></td>
 				<td th:text = "${pessoa.sobrenome}"></td>
+				<td><a th:href="@{/editarPessoa/{idPessoa}(idPessoa=${pessoa.id})}">Editar</a></td>
 			</tr>
 		</table>
 		
