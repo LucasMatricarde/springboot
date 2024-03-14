@@ -18,15 +18,15 @@ public class PessoaController {
 	
 	@Autowired
 	private PessoaRepository pessoaRep;
-	
-	@RequestMapping(method = RequestMethod.GET, value = "/cadastroPessoa")
+
+	@GetMapping("/cadastroPessoa")
 	public ModelAndView inicio() {
 		ModelAndView view = new ModelAndView("cadastro/cadastroPessoa");
 		view.addObject("pessoaobj", new Pessoa());
 		return view;
 	}
-	
-	@RequestMapping(method = RequestMethod.POST, value = "**/salvarPessoa")
+
+	@GetMapping("**/salvarPessoa")
 	public ModelAndView salvar(Pessoa pessoa) {
 		pessoaRep.save(pessoa);
 		ModelAndView view = new ModelAndView("cadastro/cadastroPessoa");
@@ -35,8 +35,8 @@ public class PessoaController {
 		view.addObject("pessoaobj", new Pessoa());
 		return view;
 	}
-	
-	@RequestMapping(method = RequestMethod.GET, value="/listaPessoas")
+
+	@GetMapping("/listaPessoas")
 	public ModelAndView pessoas() {
 		ModelAndView view = new ModelAndView("cadastro/cadastroPessoa");
 		Iterable<Pessoa> pessoasIt = pessoaRep.findAll();
@@ -50,6 +50,15 @@ public class PessoaController {
 		ModelAndView view = new ModelAndView("cadastro/cadastroPessoa");
 		Optional<Pessoa> pessoa = pessoaRep.findById(idPessoa);
 		view.addObject("pessoaobj", pessoa.get());
+		return view;
+	}
+
+	@GetMapping("/excluirPessoa/{idPessoa}")
+	public ModelAndView excluir(@PathVariable("idPessoa") Long idPessoa) {
+		pessoaRep.deleteById(idPessoa);
+		ModelAndView view = new ModelAndView("cadastro/cadastroPessoa");
+		view.addObject("pessoas", pessoaRep.findAll());
+		view.addObject("pessoaobj", new Pessoa());
 		return view;
 	}
 }

@@ -27,12 +27,11 @@
 				<td th:text = "${pessoa.nome}"></td>
 				<td th:text = "${pessoa.sobrenome}"></td>
 				<td><a th:href="@{/editarPessoa/{idPessoa}(idPessoa=${pessoa.id})}">Editar</a></td>
+				<td><a th:href="@{/excluirPessoa/{idPessoa}(idPessoa=${pessoa.id})}">Excluir</a></td>
 			</tr>
 		</table>
 		
-		<script type="text/javascript" src="materizalize/js/materialize.js"></script>
-		<script type="text/javascript" src="materizalize/js/materialize.min.js"></script>
+		<script type="text/javascript" src="/materialize/js/materialize.js"></script>
+		<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
     </body>
-  </html>
-	</body>
 </html>
