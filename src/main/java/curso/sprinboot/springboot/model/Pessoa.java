@@ -1,12 +1,9 @@
 package curso.sprinboot.springboot.model;
 
 import java.io.Serializable;
+import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.*;
 
 @Entity
 public class Pessoa implements Serializable {
@@ -21,6 +18,9 @@ public class Pessoa implements Serializable {
 	private String nome;
 	
 	private String sobrenome;
+
+	@OneToMany(mappedBy = "pessoa")
+	private List<Telefone> telefones;
 
 	public Long getId() {
 		return id;
@@ -44,5 +44,13 @@ public class Pessoa implements Serializable {
 
 	public void setSobrenome(String sobrenome) {
 		this.sobrenome = sobrenome;
+	}
+
+	public List<Telefone> getTelefones() {
+		return telefones;
+	}
+
+	public void setTelefones(List<Telefone> telefones) {
+		this.telefones = telefones;
 	}
 }

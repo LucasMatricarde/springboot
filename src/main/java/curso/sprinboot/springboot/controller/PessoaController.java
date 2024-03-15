@@ -23,7 +23,7 @@ public class PessoaController {
 	}
 
 	@GetMapping("/cadastroPessoa")
-	public ModelAndView inicio() {
+	public ModelAndView cadastroPessoa() {
 		ModelAndView view = new ModelAndView("cadastro/cadastroPessoa");
 		Iterable<Pessoa> pessoasIt = pessoaRep.findAll();
 		view.addObject("pessoas", pessoasIt);
