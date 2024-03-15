@@ -16,9 +16,17 @@ public class PessoaController {
 	@Autowired
 	private PessoaRepository pessoaRep;
 
+	@GetMapping("/index")
+	public ModelAndView index() {
+		ModelAndView view = new ModelAndView("index");
+		return view;
+	}
+
 	@GetMapping("/cadastroPessoa")
 	public ModelAndView inicio() {
 		ModelAndView view = new ModelAndView("cadastro/cadastroPessoa");
+		Iterable<Pessoa> pessoasIt = pessoaRep.findAll();
+		view.addObject("pessoas", pessoasIt);
 		view.addObject("pessoaobj", new Pessoa());
 		return view;
 	}
@@ -63,6 +71,14 @@ public class PessoaController {
 		ModelAndView view = new ModelAndView("cadastro/cadastroPessoa");
 		view.addObject("pessoas", pessoaRep.findPessoaByName(nomePesquisa));
 		view.addObject("pessoaobj", new Pessoa());
+		return view;
+	}
+
+	@GetMapping ("/telefones/{idPessoa}")
+	public ModelAndView telefones(@PathVariable("idPessoa") Long idPessoa){
+		ModelAndView view = new ModelAndView("cadastro/telefones");
+		Optional<Pessoa> pessoa = pessoaRep.findById(idPessoa);
+		view.addObject("pessoaobj", pessoa.get());
 		return view;
 	}
 }
