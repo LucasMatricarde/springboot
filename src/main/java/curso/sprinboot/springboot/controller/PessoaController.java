@@ -2,6 +2,8 @@ package curso.sprinboot.springboot.controller;
 
 import java.util.Optional;
 
+import curso.sprinboot.springboot.model.Telefone;
+import curso.sprinboot.springboot.repository.TelefoneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,8 @@ public class PessoaController {
 	
 	@Autowired
 	private PessoaRepository pessoaRep;
+	@Autowired
+	private TelefoneRepository telefoneRep;
 
 	@GetMapping("/index")
 	public ModelAndView index() {
@@ -79,6 +83,8 @@ public class PessoaController {
 		ModelAndView view = new ModelAndView("cadastro/telefones");
 		Optional<Pessoa> pessoa = pessoaRep.findById(idPessoa);
 		view.addObject("pessoaobj", pessoa.get());
+		view.addObject("telefoneobj", new Telefone());
+		view.addObject("telefones", pessoa.get().getTelefones());
 		return view;
 	}
 }

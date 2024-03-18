@@ -14,9 +14,14 @@ public class Telefone {
 
     private String tipo;
 
+    private String ddd;
+
     @ManyToOne
     @ForeignKey(name = "pessoa_id")
     private Pessoa pessoa;
+
+    public Telefone() {
+    }
 
     public Long getId() {
         return id;
@@ -48,5 +53,13 @@ public class Telefone {
 
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
+    }
+
+    public String getDdd() {
+        return ddd;
+    }
+
+    public void setDdd(String ddd) {
+        this.ddd = ddd;
     }
 }
