@@ -19,25 +19,6 @@ public class TelefoneController {
     @Autowired
     private TelefoneRepository telefoneRep;
 
-    @PostMapping("**/salvarTelefone")
-    public ModelAndView salvar(Telefone telefone) {
-        telefoneRep.save(telefone);
-        ModelAndView view = new ModelAndView("cadastro/telefones");
-        Iterable<Telefone> telefonesIt = telefoneRep.findAll();
-        view.addObject("telefones", telefonesIt);
-        view.addObject("telefoneobj", new Telefone());
-        return view;
-    }
-
-    @GetMapping("/listaTelefones")
-    public ModelAndView telefones() {
-        ModelAndView view = new ModelAndView("cadastro/telefones");
-        Iterable<Telefone> telefonesIt = telefoneRep.findAll();
-        view.addObject("telefones", telefonesIt);
-        view.addObject("telefoneobj", new Telefone());
-        return view;
-    }
-
     @GetMapping("/editarTelefone/{idTelefone}")
     public ModelAndView editar(@PathVariable("idTelefone") Long idTelefone) {
         ModelAndView view = new ModelAndView("cadastro/telefones");

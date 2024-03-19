@@ -84,7 +84,20 @@ public class PessoaController {
 		Optional<Pessoa> pessoa = pessoaRep.findById(idPessoa);
 		view.addObject("pessoaobj", pessoa.get());
 		view.addObject("telefoneobj", new Telefone());
-		view.addObject("telefones", pessoa.get().getTelefones());
+		view.addObject("telefones", telefoneRep.geTelefones(idPessoa));
 		return view;
 	}
+
+	@PostMapping("**/salvarTelefonePessoa/{idPessoa}")
+	public ModelAndView salvarTelefonePessoa(Telefone telefone, @PathVariable("idPessoa") Long idPessoa) {
+		ModelAndView view = new ModelAndView("cadastro/telefones");
+		Pessoa pessoa = pessoaRep.findById(idPessoa).get();
+		view.addObject("pessoaobj", pessoa);
+		view.addObject("telefones", telefoneRep.geTelefones(idPessoa));
+		view.addObject("telefoneobj", new Telefone());
+		telefone.setPessoa(pessoa);
+		telefoneRep.save(telefone);
+		return view;
+	}
+
 }

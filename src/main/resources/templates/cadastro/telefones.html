@@ -29,7 +29,8 @@
 		</div>
 
 		<div class="conteudo-centralizado">
-			<form style="padding: 0 1.5rem;" class="col s12" action="salvarTelefone" id="formTelefone" method="post" th:object="${telefoneobj}">
+			<h5>Telefones</h5>
+			<form style="padding: 0 1.5rem;" class="col s12" th:action="@{/salvarTelefonePessoa/{idPessoa}(idPessoa=${pessoaobj.id})}" id="formTelefone" method="post" th:object="${telefoneobj}">
 				<div class="row">
 					<div class="input-field col s12">
 						<label for="id" class="active">Id</label>
@@ -80,7 +81,7 @@
 				<td th:text = "${telefone.id}"></td>
 				<td th:text = "${telefone.tipo}"></td>
 				<td th:text = "${telefone.ddd}"></td>
-				<td><a th:href="@{/telefones/{idTelefone}(idTelefone=${telefone.id})}"><span th:text = "${telefone.numero}"></span></a></td>
+				<td th:text = "${telefone.numero}"></td>
 				<td><a class="btn-floating btn-small cyan pulse" th:href="@{/editarTelefone/{idTelefone}(idTelefone=${telefone.id})}"><i class="material-icons">edit</i></a></td>
 				<td><a class="btn-floating btn-small cyan pulse" th:href="@{/excluirTelefone/{idTelefone}(idTelefone=${telefone.id})}"><i class="material-icons">delete</i></a></td>
 			</tr>
