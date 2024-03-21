@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -19,19 +21,49 @@ public class TelefoneController {
     @Autowired
     private TelefoneRepository telefoneRep;
 
+    @Autowired
+    private PessoaRepository pessoaRep;
+
+    @PostMapping("**/salvarTelefonePessoa/{idPessoa}")
+    public ModelAndView salvarTelefonePessoa(Telefone telefone, @PathVariable("idPessoa") Long idPessoa) {
+        ModelAndView view = new ModelAndView("cadastro/telefones");
+        Pessoa pessoa = pessoaRep.findById(idPessoa).get();
+        if(telefone != null && (telefone.getNumero() == null || telefone.getNumero().isEmpty())){
+            List<String> msg = new ArrayList<>();
+            msg.add("Numero deve ser informado");
+            view.addObject("msg", msg);
+            view.addObject("pessoaobj", pessoa);
+            view.addObject("telefoneobj", telefone);
+            view.addObject("telefones", telefoneRep.geTelefones(idPessoa));
+            return view;
+        }
+
+        telefone.setPessoa(pessoa);
+        telefoneRep.save(telefone);
+        view.addObject("pessoaobj", pessoa);
+        view.addObject("telefoneobj", new Telefone());
+        view.addObject("telefones", telefoneRep.geTelefones(idPessoa));
+        return view;
+    }
+
     @GetMapping("/editarTelefone/{idTelefone}")
     public ModelAndView editar(@PathVariable("idTelefone") Long idTelefone) {
         ModelAndView view = new ModelAndView("cadastro/telefones");
         Optional<Telefone> telefone = telefoneRep.findById(idTelefone);
+        Optional<Pessoa> pessoa = pessoaRep.findById(telefone.get().getPessoa().getId());
+        view.addObject("pessoaobj", pessoa.get());
+        view.addObject("telefones", telefoneRep.geTelefones(pessoa.get().getId()));
         view.addObject("telefoneobj", telefone.get());
         return view;
     }
 
     @GetMapping("/excluirTelefone/{idTelefone}")
     public ModelAndView excluir(@PathVariable("idTelefone") Long idTelefone) {
+        Pessoa pessoa = telefoneRep.findById(idTelefone).get().getPessoa();
         telefoneRep.deleteById(idTelefone);
         ModelAndView view = new ModelAndView("cadastro/telefones");
-        view.addObject("telefones", telefoneRep.findAll());
+        view.addObject("pessoaobj", pessoa);
+        view.addObject("telefones", telefoneRep.geTelefones(pessoa.getId()));
         view.addObject("telefoneobj", new Telefone());
         return view;
     }

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Pessoa implements Serializable {
@@ -14,12 +16,16 @@ public class Pessoa implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pessoa_generator")
 	@SequenceGenerator(name = "pessoa_generator", sequenceName = "pessoa_seq", allocationSize = 1)
 	private Long id;
-	
+
+	@NotNull(message = "Nome não pode ser nulo")
+	@NotEmpty(message = "Nome não pode ser vazio")
 	private String nome;
-	
+
+	@NotNull(message = "Sobrenome não pode ser nulo")
+	@NotEmpty(message = "Sobrenome não pode ser vazio")
 	private String sobrenome;
 
-	@OneToMany(mappedBy = "pessoa")
+	@OneToMany(mappedBy = "pessoa", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<Telefone> telefones;
 
 	public Long getId() {

@@ -21,6 +21,11 @@
 		</nav>
 
 		<div class="conteudo-centralizado">
+			<br/>
+				<div th:each="m : ${msg}">
+					<span th:text="${m}"></span>
+				</div>
+			<br/>
 			<form style="padding: 0 1.5rem;" class="col s12" action="salvarPessoa" id="formPessoa" method="post" th:object="${pessoaobj}">
 				<div class="row">
 					<div class="input-field col s12">
@@ -70,26 +75,26 @@
 					</div>
 				</form>
 			</div>
-
-			<table class="striped">
-				<thead>
-					<tr>
-						<th>Id</th>
-						<th>Nome</th>
-						<th>Sobrenome</th>
-						<th>Editar</th>
-						<th>Excluir</th>
-					</tr>
-				</thead>
-				<tr th:each = "pessoa : ${pessoas}">
-					<td th:text = "${pessoa.id}"></td>
-					<td><a th:href="@{/telefones/{idPessoa}(idPessoa=${pessoa.id})}"><span th:text = "${pessoa.nome}"></span></a></td>
-					<td th:text = "${pessoa.sobrenome}"></td>
-					<td><a class="btn-floating btn-small cyan pulse" th:href="@{/editarPessoa/{idPessoa}(idPessoa=${pessoa.id})}"><i class="material-icons">edit</i></a></td>
-					<td><a class="btn-floating btn-small cyan pulse" th:href="@{/excluirPessoa/{idPessoa}(idPessoa=${pessoa.id})}"><i class="material-icons">delete</i></a></td>
-				</tr>
-			</table>
 		</div>
+
+		<table class="striped">
+			<thead>
+			<tr>
+				<th>Id</th>
+				<th>Nome</th>
+				<th>Sobrenome</th>
+				<th>Editar</th>
+				<th>Excluir</th>
+			</tr>
+			</thead>
+			<tr th:each = "pessoa : ${pessoas}">
+				<td th:text = "${pessoa.id}"></td>
+				<td><a th:href="@{/telefones/{idPessoa}(idPessoa=${pessoa.id})}"><span th:text = "${pessoa.nome}"></span></a></td>
+				<td th:text = "${pessoa.sobrenome}"></td>
+				<td><a class="btn-floating btn-small cyan pulse" th:href="@{/editarPessoa/{idPessoa}(idPessoa=${pessoa.id})}"><i class="material-icons">edit</i></a></td>
+				<td><a class="btn-floating btn-small cyan pulse" th:href="@{/excluirPessoa/{idPessoa}(idPessoa=${pessoa.id})}"><i class="material-icons">delete</i></a></td>
+			</tr>
+		</table>
 		<script type="text/javascript" src="/materialize/js/materialize.js"></script>
 		<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
     </body>

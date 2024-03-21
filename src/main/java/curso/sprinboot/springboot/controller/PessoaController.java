@@ -1,11 +1,16 @@
 package curso.sprinboot.springboot.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import curso.sprinboot.springboot.model.Telefone;
 import curso.sprinboot.springboot.repository.TelefoneRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -36,12 +41,22 @@ public class PessoaController {
 	}
 
 	@PostMapping ("**/salvarPessoa")
-	public ModelAndView salvar(Pessoa pessoa) {
-		pessoaRep.save(pessoa);
+	public ModelAndView salvar(@Valid Pessoa pessoa, BindingResult bindingResult) {
 		ModelAndView view = new ModelAndView("cadastro/cadastroPessoa");
 		Iterable<Pessoa> pessoasIt = pessoaRep.findAll();
 		view.addObject("pessoas", pessoasIt);
 		view.addObject("pessoaobj", new Pessoa());
+		if(bindingResult.hasErrors()) {
+			List<String> msg = new ArrayList<>();
+			for (ObjectError objectError : bindingResult.getAllErrors()){
+				msg.add(objectError.getDefaultMessage());// vem das anotações do objeto Pessoa
+			}
+			view.addObject("msg", msg);
+			return view;
+		}
+		pessoaRep.save(pessoa);
+		pessoasIt = pessoaRep.findAll();
+		view.addObject("pessoas", pessoasIt);
 		return view;
 	}
 
@@ -87,17 +102,4 @@ public class PessoaController {
 		view.addObject("telefones", telefoneRep.geTelefones(idPessoa));
 		return view;
 	}
-
-	@PostMapping("**/salvarTelefonePessoa/{idPessoa}")
-	public ModelAndView salvarTelefonePessoa(Telefone telefone, @PathVariable("idPessoa") Long idPessoa) {
-		ModelAndView view = new ModelAndView("cadastro/telefones");
-		Pessoa pessoa = pessoaRep.findById(idPessoa).get();
-		view.addObject("pessoaobj", pessoa);
-		view.addObject("telefones", telefoneRep.geTelefones(idPessoa));
-		view.addObject("telefoneobj", new Telefone());
-		telefone.setPessoa(pessoa);
-		telefoneRep.save(telefone);
-		return view;
-	}
-
 }

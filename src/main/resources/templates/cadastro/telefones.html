@@ -21,6 +21,11 @@
 		</nav>
 
 		<div class="conteudo-centralizado" th:each="p : ${pessoaobj}">
+			<br/>
+				<div th:each="m : ${msg}">
+					<span th:text="${m}"></span>
+				</div>
+			<br/>
 			<div class="row">
 				<p>ID: <span th:text="${p.id}"></span></p>
 				<p>Nome: <span th:text="${p.nome}"></span></p>
