@@ -1,9 +1,9 @@
-package curso.sprinboot.springboot.controller;
+package curso.springboot.controller;
 
-import curso.sprinboot.springboot.model.Pessoa;
-import curso.sprinboot.springboot.model.Telefone;
-import curso.sprinboot.springboot.repository.PessoaRepository;
-import curso.sprinboot.springboot.repository.TelefoneRepository;
+import curso.springboot.model.Pessoa;
+import curso.springboot.model.Telefone;
+import curso.springboot.repository.PessoaRepository;
+import curso.springboot.repository.TelefoneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

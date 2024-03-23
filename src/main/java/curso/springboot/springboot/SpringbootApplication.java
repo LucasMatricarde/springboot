@@ -1,4 +1,4 @@
-package curso.sprinboot.springboot;
+package curso.springboot.springboot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,9 +8,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
-@EntityScan(basePackages = "curso.sprinboot.springboot.model")
+@EntityScan(basePackages = "curso.springboot.model")
 @ComponentScan(basePackages = {"curso.*"})
-@EnableJpaRepositories(basePackages = {"curso.sprinboot.springboot.repository"})
+@EnableJpaRepositories(basePackages = {"curso.springboot.repository"})
 @EnableTransactionManagement
 public class SpringbootApplication {
 

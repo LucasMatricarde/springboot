@@ -1,12 +1,11 @@
-package curso.sprinboot.springboot.controller;
+package curso.springboot.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import curso.sprinboot.springboot.model.Telefone;
-import curso.sprinboot.springboot.repository.TelefoneRepository;
-import jakarta.validation.Valid;
+import curso.springboot.model.Telefone;
+import curso.springboot.repository.TelefoneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -14,8 +13,10 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import curso.sprinboot.springboot.model.Pessoa;
-import curso.sprinboot.springboot.repository.PessoaRepository;
+import curso.springboot.model.Pessoa;
+import curso.springboot.repository.PessoaRepository;
+
+import javax.validation.Valid;
 
 @Controller
 public class PessoaController {

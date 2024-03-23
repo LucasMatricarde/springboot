@@ -1,7 +1,8 @@
-package curso.sprinboot.springboot.model;
+package curso.springboot.model;
 
-import jakarta.persistence.*;
 import org.hibernate.annotations.ForeignKey;
+
+import javax.persistence.*;
 
 @Entity
 public class Telefone {
