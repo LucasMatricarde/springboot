@@ -28,9 +28,19 @@ public class TelefoneController {
     public ModelAndView salvarTelefonePessoa(Telefone telefone, @PathVariable("idPessoa") Long idPessoa) {
         ModelAndView view = new ModelAndView("cadastro/telefones");
         Pessoa pessoa = pessoaRep.findById(idPessoa).get();
-        if(telefone != null && (telefone.getNumero() == null || telefone.getNumero().isEmpty())){
+        if(telefone != null && (telefone.getNumero() == null || telefone.getNumero().isEmpty())
+                || (telefone.getDdd() == null || telefone.getDdd().isEmpty()
+                || (telefone.getTipo() == null || telefone.getTipo().isEmpty()))){
             List<String> msg = new ArrayList<>();
-            msg.add("Numero deve ser informado");
+            if(telefone.getTipo().isEmpty()) {
+                msg.add("Tipo Telefone deve ser informado");
+            }
+            if(telefone.getDdd().isEmpty()) {
+                msg.add("DDD deve ser informado");
+            }
+            if(telefone.getNumero().isEmpty()) {
+                msg.add("Numero deve ser informado");
+            }
             view.addObject("msg", msg);
             view.addObject("pessoaobj", pessoa);
             view.addObject("telefoneobj", telefone);
